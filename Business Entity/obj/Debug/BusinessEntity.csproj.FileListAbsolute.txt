@@ -1,0 +1,6 @@
+C:\Matab\Customer Service\Business Entity\bin\Debug\Business Entity.dll
+C:\Matab\Customer Service\Business Entity\bin\Debug\Business Entity.pdb
+C:\Matab\Customer Service\Business Entity\obj\Debug\BusinessEntity.csproj.AssemblyReference.cache
+C:\Matab\Customer Service\Business Entity\obj\Debug\BusinessEntity.csproj.CoreCompileInputs.cache
+C:\Matab\Customer Service\Business Entity\obj\Debug\Business Entity.dll
+C:\Matab\Customer Service\Business Entity\obj\Debug\Business Entity.pdb

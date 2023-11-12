@@ -1,0 +1,16 @@
+C:\Matab\Customer Service\BusinessLogicLayer\bin\Debug\BusinessLogicLayer.dll.config
+C:\Matab\Customer Service\BusinessLogicLayer\bin\Debug\BusinessLogicLayer.dll
+C:\Matab\Customer Service\BusinessLogicLayer\bin\Debug\BusinessLogicLayer.pdb
+C:\Matab\Customer Service\BusinessLogicLayer\bin\Debug\Business Entity.dll
+C:\Matab\Customer Service\BusinessLogicLayer\bin\Debug\DataAccessLayer.dll
+C:\Matab\Customer Service\BusinessLogicLayer\bin\Debug\EntityFramework.dll
+C:\Matab\Customer Service\BusinessLogicLayer\bin\Debug\Business Entity.pdb
+C:\Matab\Customer Service\BusinessLogicLayer\bin\Debug\DataAccessLayer.pdb
+C:\Matab\Customer Service\BusinessLogicLayer\bin\Debug\DataAccessLayer.dll.config
+C:\Matab\Customer Service\BusinessLogicLayer\bin\Debug\EntityFramework.xml
+C:\Matab\Customer Service\BusinessLogicLayer\obj\Debug\BusinessLogicLayer.csproj.AssemblyReference.cache
+C:\Matab\Customer Service\BusinessLogicLayer\obj\Debug\BusinessLogicLayer.csproj.CoreCompileInputs.cache
+C:\Matab\Customer Service\BusinessLogicLayer\obj\Debug\BusinessLogicLayer.csproj.CopyComplete
+C:\Matab\Customer Service\BusinessLogicLayer\obj\Debug\BusinessLogicLayer.dll
+C:\Matab\Customer Service\BusinessLogicLayer\obj\Debug\BusinessLogicLayer.pdb
+C:\Matab\Customer Service\BusinessLogicLayer\bin\Debug\App.config

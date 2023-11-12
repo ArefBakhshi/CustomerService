@@ -1,0 +1,49 @@
+C:\Matab\Customer Service\Customer Service\bin\Debug\Customer Service.exe.config
+C:\Matab\Customer Service\Customer Service\bin\Debug\Customer Service.exe
+C:\Matab\Customer Service\Customer Service\bin\Debug\Customer Service.pdb
+C:\Matab\Customer Service\Customer Service\bin\Debug\EntityFramework.dll
+C:\Matab\Customer Service\Customer Service\bin\Debug\EntityFramework.SqlServer.dll
+C:\Matab\Customer Service\Customer Service\bin\Debug\HandyControl.dll
+C:\Matab\Customer Service\Customer Service\bin\Debug\EntityFramework.xml
+C:\Matab\Customer Service\Customer Service\bin\Debug\EntityFramework.SqlServer.xml
+C:\Matab\Customer Service\Customer Service\bin\Debug\HandyControl.pdb
+C:\Matab\Customer Service\Customer Service\bin\Debug\HandyControl.xml
+C:\Matab\Customer Service\Customer Service\obj\Debug\CustomerService.csproj.AssemblyReference.cache
+C:\Matab\Customer Service\Customer Service\obj\Debug\CustomerService.csproj.SuggestedBindingRedirects.cache
+C:\Matab\Customer Service\Customer Service\obj\Debug\clockMainWindow.g.cs
+C:\Matab\Customer Service\Customer Service\obj\Debug\MainWindow.g.cs
+C:\Matab\Customer Service\Customer Service\obj\Debug\App.g.cs
+C:\Matab\Customer Service\Customer Service\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Matab\Customer Service\Customer Service\obj\Debug\Customer Service_MarkupCompile.cache
+C:\Matab\Customer Service\Customer Service\obj\Debug\Customer Service_MarkupCompile.lref
+C:\Matab\Customer Service\Customer Service\obj\Debug\App.baml
+C:\Matab\Customer Service\Customer Service\obj\Debug\clockMainWindow.baml
+C:\Matab\Customer Service\Customer Service\obj\Debug\MainWindow.baml
+C:\Matab\Customer Service\Customer Service\obj\Debug\Customer Service.g.resources
+C:\Matab\Customer Service\Customer Service\obj\Debug\Customer_Service.Properties.Resources.resources
+C:\Matab\Customer Service\Customer Service\obj\Debug\CustomerService.csproj.GenerateResource.cache
+C:\Matab\Customer Service\Customer Service\obj\Debug\CustomerService.csproj.CoreCompileInputs.cache
+C:\Matab\Customer Service\Customer Service\obj\Debug\CustomerService.csproj.CopyComplete
+C:\Matab\Customer Service\Customer Service\obj\Debug\Customer Service.exe
+C:\Matab\Customer Service\Customer Service\obj\Debug\Customer Service.pdb
+C:\Matab\Customer Service\Customer Service\obj\Debug\Customer_Service.CustomersForm.resources
+C:\Matab\Customer Service\Customer Service\obj\Debug\Customer_Service.ReminderForm.resources
+C:\Matab\Customer Service\Customer Service\bin\Debug\DevComponents.DotNetBar.Schedule.dll
+C:\Matab\Customer Service\Customer Service\bin\Debug\DevComponents.DotNetBar2.dll
+C:\Matab\Customer Service\Customer Service\bin\Debug\DevComponents.DotNetBar.Schedule.xml
+C:\Matab\Customer Service\Customer Service\bin\Debug\DevComponents.DotNetBar2.xml
+C:\Matab\Customer Service\Customer Service\obj\Debug\Customer_Service.SmsForm.resources
+C:\Matab\Customer Service\Customer Service\bin\Debug\Business Entity.dll
+C:\Matab\Customer Service\Customer Service\bin\Debug\BusinessLogicLayer.dll
+C:\Matab\Customer Service\Customer Service\bin\Debug\Business Entity.pdb
+C:\Matab\Customer Service\Customer Service\bin\Debug\BusinessLogicLayer.pdb
+C:\Matab\Customer Service\Customer Service\bin\Debug\BusinessLogicLayer.dll.config
+C:\Matab\Customer Service\Customer Service\obj\Debug\Customer_Service.ProductForm.resources
+C:\Matab\Customer Service\Customer Service\obj\Debug\Customer_Service.ActivityForm.resources
+C:\Matab\Customer Service\Customer Service\obj\Debug\Customer_Service.InvoiceForm.resources
+C:\Matab\Customer Service\Customer Service\obj\Debug\Customer_Service.SettingForm.resources
+C:\Matab\Customer Service\Customer Service\obj\Debug\Customer_Service.ReportForm.resources
+C:\Matab\Customer Service\Customer Service\bin\Debug\DataAccessLayer.dll
+C:\Matab\Customer Service\Customer Service\bin\Debug\DataAccessLayer.pdb
+C:\Matab\Customer Service\Customer Service\bin\Debug\DataAccessLayer.dll.config
+C:\Matab\Customer Service\Customer Service\bin\Debug\App.config
