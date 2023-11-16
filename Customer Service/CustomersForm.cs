@@ -26,6 +26,17 @@ namespace Customer_Service
             int nHeightRect
             );
 
+        void FillDataGrid()
+        {
+            dataGridView1.DataSource = null;
+            dataGridView1.DataSource = customerBll.GetActiveCustomers();
+        }
+        void ClearTextBoxes()
+        {
+            textBoxCustomerName.Text = String.Empty;
+            textBoxCustomerPhone.Text = String.Empty;
+            textBoxSearch.Text = String.Empty;
+        }
         public CustomersForm()
         {
             InitializeComponent();
@@ -61,7 +72,7 @@ namespace Customer_Service
             MessageBox.Show(customerBll.CreateCustomer(customer));
         }
         int index;
-        private void textBoxX2_TextChanged(object sender, EventArgs e)
+        private void textBoxSearch_TextChanged(object sender, EventArgs e)
         {
             if (checkBox1.Checked && checkBox2.Checked || (!checkBox1.Checked && !checkBox2.Checked))
             {
@@ -77,14 +88,22 @@ namespace Customer_Service
             }
 
             dataGridView1.DataSource = null;
-            dataGridView1.DataSource = customerBll.SearchCustomers(textBoxX2.Text,index);
+            dataGridView1.DataSource = customerBll.SearchCustomers(textBoxSearch.Text, index);
 
         }
 
         private void CustomersForm_Load(object sender, EventArgs e)
         {
-            
-            dataGridView1.DataSource = customerBll.GetActiveCustomers();
+            FillDataGrid();
+        }
+
+        private void dataGridView1_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+
+                Point mousePosition = dataGridView1.PointToClient(Cursor.Position);
+            }
         }
     }
 }

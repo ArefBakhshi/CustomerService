@@ -55,7 +55,7 @@ namespace DataAccessLayer
                 {
                     connection.Open();
 
-                    using (SqlCommand command = new SqlCommand("dbo.GetActiveCustomer", connection))
+                    using (SqlCommand command = new SqlCommand("dbo.GetActiveCustomers", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
 
@@ -130,7 +130,7 @@ namespace DataAccessLayer
             }
             catch (Exception ex)
             {
-                // Handle or log the exception as per your requirement
+                
                 Console.WriteLine("An error occurred while checking customer existence: " + ex.Message);
                 return false; // Return false by default in case of any exception
             }
