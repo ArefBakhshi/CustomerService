@@ -7,6 +7,7 @@ using Business_Entity;
 using DataAccessLayer;
 using System.Data;
 
+
 namespace BusinessLogicLayer
 {
     public class CustomerBll
@@ -24,9 +25,17 @@ namespace BusinessLogicLayer
         {
            return customerDal.SearchCustomers(searchParameter, index);
         }
+
+
         public DataTable GetActiveCustomers()
         {
+            
             return customerDal.GetActiveCustomers();
+        }
+
+        public Customer GetCustomerById(int id)
+        {
+           return customerDal.GetCustomerById(id);
         }
     }
 }
