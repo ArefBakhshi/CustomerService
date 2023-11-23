@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using BusinessLogicLayer;
 using Business_Entity;
+using HandyControl.Tools.Extension;
 
 namespace Customer_Service
 {
@@ -53,7 +54,7 @@ namespace Customer_Service
         {
             this.Close();
         }
-
+        
         private void label1_Click(object sender, EventArgs e)
         {
             Customer customer = new Customer();
