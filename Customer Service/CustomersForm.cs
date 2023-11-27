@@ -102,8 +102,14 @@ namespace Customer_Service
         {
             if (e.Button == MouseButtons.Right)
             {
-
-                Point mousePosition = dataGridView1.PointToClient(Cursor.Position);
+                if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+                {
+                    dataGridView1.ClearSelection();
+                    dataGridView1.Rows[e.RowIndex].Selected = true;
+                    dataGridView1.CurrentCell = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                    Point mousePosition = dataGridView1.PointToClient(Cursor.Position);
+                    contextMenuStrip1.Show(dataGridView1, mousePosition);
+                }
             }
         }
     }
