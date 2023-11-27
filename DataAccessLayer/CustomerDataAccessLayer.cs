@@ -153,7 +153,7 @@ namespace DataAccessLayer
                         existingCustomer.Name = customer.Name;
                         existingCustomer.Phone = customer.Phone;
                         db.SaveChanges();
-                        return "ثبت اطلاعات مشتری با موفقیت انجام شد!";
+                        return "ویرایش اطلاعات مشتری با موفقیت انجام شد!";
                     }
                     else
                     {

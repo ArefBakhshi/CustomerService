@@ -136,10 +136,10 @@
             this.textBoxCustomerPhone.Border.Class = "TextBoxBorder";
             this.textBoxCustomerPhone.Border.CornerType = DevComponents.DotNetBar.eCornerType.Rounded;
             this.textBoxCustomerPhone.DisabledBackColor = System.Drawing.Color.White;
-            this.textBoxCustomerPhone.Location = new System.Drawing.Point(187, 39);
+            this.textBoxCustomerPhone.Location = new System.Drawing.Point(240, 39);
             this.textBoxCustomerPhone.Name = "textBoxCustomerPhone";
             this.textBoxCustomerPhone.PreventEnterBeep = true;
-            this.textBoxCustomerPhone.Size = new System.Drawing.Size(477, 44);
+            this.textBoxCustomerPhone.Size = new System.Drawing.Size(424, 44);
             this.textBoxCustomerPhone.TabIndex = 2;
             this.textBoxCustomerPhone.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBoxCustomerPhone.WatermarkFont = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -342,6 +342,7 @@
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.ControlLight;
@@ -391,12 +392,14 @@
             this.ویرایشToolStripMenuItem.Name = "ویرایشToolStripMenuItem";
             this.ویرایشToolStripMenuItem.Size = new System.Drawing.Size(124, 24);
             this.ویرایشToolStripMenuItem.Text = "ویرایش";
+            this.ویرایشToolStripMenuItem.Click += new System.EventHandler(this.ویرایشToolStripMenuItem_Click);
             // 
             // حذفToolStripMenuItem
             // 
             this.حذفToolStripMenuItem.Name = "حذفToolStripMenuItem";
             this.حذفToolStripMenuItem.Size = new System.Drawing.Size(124, 24);
             this.حذفToolStripMenuItem.Text = "حذف";
+            this.حذفToolStripMenuItem.Click += new System.EventHandler(this.حذفToolStripMenuItem_Click);
             // 
             // CustomersForm
             // 
