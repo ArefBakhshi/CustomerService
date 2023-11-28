@@ -92,6 +92,7 @@ namespace Customer_Service
                 customer.Name = textBoxCustomerName.Text;
                 customer.Phone = textBoxCustomerPhone.Text;
                 MessageBox.Show(customerBll.UpdateCustomer(customer, GetId()));
+                label1.Text = "ثبت اطلاعات";
                 FillDataGrid();
                 ClearTextBoxes();
             }
@@ -114,6 +115,7 @@ namespace Customer_Service
                 customer.Name = textBoxCustomerName.Text;
                 customer.Phone = textBoxCustomerPhone.Text;
                 MessageBox.Show(customerBll.UpdateCustomer(customer, GetId()));
+                label1.Text = "ثبت اطلاعات";
                 FillDataGrid();
                 ClearTextBoxes();
             }
@@ -176,8 +178,6 @@ namespace Customer_Service
             DialogResult result = MessageBox.Show("آیا از حذف مشتری اطمینان دارید ؟", "! هشدار", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result == DialogResult.Yes) { customerBll.DeleteCustomer(GetId()); FillDataGrid(); }
             else if (result == DialogResult.No) { }
-        }
-
-        
+        }       
     }
 }

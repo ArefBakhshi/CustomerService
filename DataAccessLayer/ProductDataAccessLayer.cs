@@ -170,34 +170,34 @@ namespace DataAccessLayer
                 return "ویرایش اطلاعات مشتری با مشکل مواجه شد: خطای ناشناخته\n" + e.Message;
             }
         }
-        //public string DeleteProduct(int id)
-        //{
-        //    try
-        //    {
-        //        using (var db = new DB())
-        //        {
-        //            var product = db.Products.FirstOrDefault(c => c.Id == id);
+        public string DeleteProduct(int id)
+        {
+            try
+            {
+                using (var db = new DB())
+                {
+                    var product = db.Products.FirstOrDefault(c => c.Id == id);
 
-        //            if (product != null)
-        //            {
-        //                product.IsDeleted = true;
-        //                db.SaveChanges();
-        //                return "حذف مشتری با موفقیت انجام شد!";
-        //            }
-        //            else
-        //            {
-        //                return "مشتری مورد نظر یافت نشد!";
-        //            }
-        //        }
-        //    }
-        //    catch (DbUpdateException e)
-        //    {
-        //        return "حذف مشتری با مشکل مواجه شد: خطای پایگاه داده\n" + e.Message;
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return "حذف مشتری با مشکل مواجه شد: خطای ناشناخته\n" + e.Message;
-        //    }
-        //}
+                    if (product != null)
+                    {
+                        product.IsDeleted = true;
+                        db.SaveChanges();
+                        return "حذف مشتری با موفقیت انجام شد!";
+                    }
+                    else
+                    {
+                        return "مشتری مورد نظر یافت نشد!";
+                    }
+                }
+            }
+            catch (DbUpdateException e)
+            {
+                return "حذف مشتری با مشکل مواجه شد: خطای پایگاه داده\n" + e.Message;
+            }
+            catch (Exception e)
+            {
+                return "حذف مشتری با مشکل مواجه شد: خطای ناشناخته\n" + e.Message;
+            }
+        }
     }
 }

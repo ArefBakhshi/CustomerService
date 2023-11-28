@@ -18,6 +18,8 @@ namespace Business_Entity
 
         public List<Invoice> invoices { get; set; } = new List<Invoice>();
 
-        
+        public bool IsDeleted { get; set; }
+
+
     }
 }

@@ -54,6 +54,15 @@
   <ItemGroup>
     <Compile Include="CustomerDataAccessLayer.cs" />
     <Compile Include="DB.cs" />
+    <Compile Include="Migrations\202310300446241_InitialCreate.cs" />
+    <Compile Include="Migrations\202310300446241_InitialCreate.designer.cs">
+      <DependentUpon>202310300446241_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202311280110447_DBproductChanges.cs" />
+    <Compile Include="Migrations\202311280110447_DBproductChanges.designer.cs">
+      <DependentUpon>202311280110447_DBproductChanges.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ProductDataAccessLayer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -68,6 +77,14 @@
       <Project>{76d41481-df28-40a2-bd9d-40672d27f17c}</Project>
       <Name>BusinessEntity</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202310300446241_InitialCreate.resx">
+      <DependentUpon>202310300446241_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202311280110447_DBproductChanges.resx">
+      <DependentUpon>202311280110447_DBproductChanges.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
