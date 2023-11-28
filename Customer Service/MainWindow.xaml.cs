@@ -85,6 +85,9 @@ namespace Customer_Service
             SettingForm form = new SettingForm(); OpenWinForm(form);
         }
 
-        
+        private void Image_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            System.Windows.Application.Current.Shutdown();
+        }
     }
 }

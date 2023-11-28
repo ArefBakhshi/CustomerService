@@ -35,6 +35,8 @@ namespace Customer_Service
             this.FormBorderStyle = FormBorderStyle.None;
             Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 15, 15));
         }
+
+
         CustomerBll customerBll = new CustomerBll();
         void FillDataGrid()//To fill DataGrid called in later events
         {
@@ -54,6 +56,8 @@ namespace Customer_Service
             int id = (int)dataGridView1.Rows[rowIndex].Cells["id"].Value;
             return id;
         }
+
+
         private void CustomersForm_Load(object sender, EventArgs e)
         {
             FillDataGrid();
@@ -67,6 +71,8 @@ namespace Customer_Service
         {
             this.Close();
         }
+
+
 
         private void label1_Click(object sender, EventArgs e)
         {
@@ -90,7 +96,6 @@ namespace Customer_Service
                 ClearTextBoxes();
             }
         }//Checks and executes either create or update 
-
         private void pictureBox1_Click(object sender, EventArgs e)
         {
             if (label1.Text == "ثبت اطلاعات")
@@ -113,6 +118,7 @@ namespace Customer_Service
                 ClearTextBoxes();
             }
         }//Checks and executes either create or update 
+
 
 
         int index;// A flag for search, to determine which stored procedure should be used.
@@ -151,9 +157,7 @@ namespace Customer_Service
                     contextMenuStrip1.Show(dataGridView1, mousePosition);
                 }
             }
-        }
-
-        
+        }       
         private void ویرایشToolStripMenuItem_Click(object sender, EventArgs e)//Edition in menustrip
         {
             Customer customer = new Customer();
@@ -164,7 +168,6 @@ namespace Customer_Service
             label1.Text = "ویرایش اطلاعات";
 
         }
-
         private void حذفToolStripMenuItem_Click(object sender, EventArgs e)//Deletion in menustrip
         {
             Customer customer = new Customer();
