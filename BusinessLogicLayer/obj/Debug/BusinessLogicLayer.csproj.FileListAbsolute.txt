@@ -14,3 +14,5 @@ C:\Matab\Customer Service\BusinessLogicLayer\obj\Debug\BusinessLogicLayer.csproj
 C:\Matab\Customer Service\BusinessLogicLayer\obj\Debug\BusinessLogicLayer.dll
 C:\Matab\Customer Service\BusinessLogicLayer\obj\Debug\BusinessLogicLayer.pdb
 C:\Matab\Customer Service\BusinessLogicLayer\bin\Debug\App.config
+C:\Matab\Customer Service\BusinessLogicLayer\bin\Debug\NLog.dll
+C:\Matab\Customer Service\BusinessLogicLayer\bin\Debug\NLog.xml

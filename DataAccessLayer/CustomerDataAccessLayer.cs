@@ -10,15 +10,18 @@ using System.Security.Cryptography.X509Certificates;
 using System.Data;
 using System.Configuration;
 using System.Data.Entity.Infrastructure;
+using System.Data.Common;
+using NLog.Fluent;
 
 
 namespace DataAccessLayer
 {
     public class CustomerDataAccessLayer
     {
+        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
         
-        
-        public string CreateCustomer(Customer customer)
+
+        public string CreateCustomer(Customer customer) // it does as the name suggests.  
         {
             try
             {
@@ -34,20 +37,17 @@ namespace DataAccessLayer
                     return "ثبت اطلاعات مشتری با موفقیت انجام شد";
                 }
             }
-            catch (DbUpdateException e)
+            catch (Exception ex)
             {
-                return "ثبت اطلاعات مشتری با مشکل مواجه شد: خطای پایگاه داده\n" + e.Message;
+                logger.Error(ex, "An unexpected exception occurred while creating a new customer. Caught in Dal");
+                throw;
             }
-            catch (Exception e)
-            {
-                return "ثبت اطلاعات مشتری با مشکل مواجه شد: خطای ناشناخته\n" + e.Message;
-            }
-        }
-        public DataTable GetActiveCustomers()
+            
+        }    
+        public DataTable GetActiveCustomers() //Gets active customers from database to populate the grid.
         {
             string connectionString = ConfigurationManager.ConnectionStrings["Constr"].ConnectionString;
-
-            DataTable dataTable = null;
+            DataTable dataTable = new DataTable();
 
             try
             {
@@ -58,6 +58,7 @@ namespace DataAccessLayer
                     using (SqlCommand command = new SqlCommand("dbo.GetActiveCustomers", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
+                        command.CommandTimeout = 180; // Timeout in seconds
 
                         using (SqlDataAdapter adapter = new SqlDataAdapter(command))
                         {
@@ -71,76 +72,95 @@ namespace DataAccessLayer
             }
             catch (Exception ex)
             {
-                // Handle the exception (e.g., logging, error reporting, etc.)
-                Console.WriteLine("An error occurred: " + ex.Message);
+                logger.Error(ex,"An error occurred while retrieving active customers from the database. Caught in Dal");
+                throw;
             }
 
             return dataTable;
-        }// for getting the list of active users in database to be put in data grid.
-        public DataTable SearchCustomers(string searchParameter, int index) // For Searching in the existing customers. 
+        }
+        public DataTable SearchCustomers(string searchParameter, int index) // search results
         {
-
             string connectionString = ConfigurationManager.ConnectionStrings["Constr"].ConnectionString;
+            DataTable dt = new DataTable();
 
-
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            try
             {
-                connection.Open();
-
-                using (SqlCommand command = new SqlCommand())
+                using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    command.Connection = connection;
+                    connection.Open();
 
-                    switch (index)
+                    using (SqlCommand command = new SqlCommand())
                     {
-                        case 0:
-                            command.CommandText = "dbo.SearchCustomer";
-                            break;
-                        case 1:
-                            command.CommandText = "dbo.SearchCustomerName";
-                            break;
-                        case 2:
-                            command.CommandText = "dbo.SearchCustomerPhone";
-                            break;
-                        default:
-                            throw new ArgumentException("Invalid index value.");
-                    }
+                        command.Connection = connection;
 
-                    command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@Search", searchParameter);
+                        switch (index)
+                        {
+                            case 0:
+                                command.CommandText = "dbo.SearchCustomer";
+                                break;
+                            case 1:
+                                command.CommandText = "dbo.SearchCustomerName";
+                                break;
+                            case 2:
+                                command.CommandText = "dbo.SearchCustomerPhone";
+                                break;
+                        }
 
-                    using (SqlDataAdapter adp = new SqlDataAdapter(command))
-                    {
-                        var ds = new DataSet();
-                        adp.Fill(ds);
-                        return ds.Tables[0];
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.AddWithValue("@Search", searchParameter);
+
+                        using (SqlDataAdapter adp = new SqlDataAdapter(command))
+                        {
+                            adp.Fill(dt);
+                        }
+                        return dt;
                     }
                 }
             }
+            
+            catch (Exception ex)
+            {
+                logger.Error(ex, "A general exception occurred during the search operation. caught in Dal");     
+                throw;
+            }
+
+            
         }
-        public bool DoesCustomerExist(Customer newCustomer)
+        public bool DoesCustomerExist(Customer customer, int? existingCustomerId = null) // this one is a bit complicated lol.checks for existing customer by phone before create and update. Adds an optional existingCustomerId parameter
         {
+            if (customer == null || string.IsNullOrWhiteSpace(customer.Phone))
+            {
+                return true;
+            }
             try
             {
                 using (var db = new DB())
                 {
-                    var existingCustomer = db.Customers.Any(customer => newCustomer.Phone == customer.Phone);
-                    return !existingCustomer; // Return true if no matching customer is found, false otherwise
+                    
+                    return db.Customers.Any(existingCustomer => existingCustomer.Phone == customer.Phone && existingCustomerId != existingCustomer.Id); 
                 }
             }
             catch (Exception ex)
             {
-                
-                Console.WriteLine("An error occurred while checking customer existence: " + ex.Message);
-                return false; // Return false by default in case of any exception
+                logger.Error(ex, "An unexpected error occurred while checking customer existence, caught in DAL.");
+                throw;
             }
-        } // checks if the customer which is being created, exists in the database or not.
-        public Customer GetCustomerById(int id) // gets a customer by id to be used for delete and update.
+        }
+        public Customer GetCustomerById(int id) // get the entity by id for edit or deletion.
         {
             DB db = new DB();
-            return db.Customers.Where(i => i.Id == id).FirstOrDefault();
-        }  
-        public string UpdateCustomer(Customer customer, int id)
+            try
+            {                
+                Customer customer = db.Customers.FirstOrDefault(c => c.Id == id);               
+                return customer;
+            }
+            catch (Exception ex)
+            {                
+                logger.Error(ex, $"An exception occurred in GetCustomerById when attempting to find customer with ID in dal {id}");               
+                throw;
+            }
+        }
+        public string UpdateCustomer(Customer customer, int id) //as it does as the name suggests.
         {
             try
             {
@@ -160,21 +180,16 @@ namespace DataAccessLayer
                         return "مشتری مورد نظر یافت نشد!";
                     }
                 }
+            
+            
             }
-            catch (DbUpdateException e)
+            catch (Exception ex)
             {
-                return "ویرایش اطلاعات مشتری با مشکل مواجه شد: خطای پایگاه داده\n" + e.Message;
-            }
-            catch (InvalidOperationException e)
-            {
-                return "ویرایش اطلاعات مشتری با مشکل مواجه شد: خطای عملیات غیرمجاز\n" + e.Message;
-            }
-            catch (Exception e)
-            {
-                return "ویرایش اطلاعات مشتری با مشکل مواجه شد: خطای ناشناخته\n" + e.Message;
+                logger.Error(ex,"Problem in UpdateCustomer caugth in dal");
+                throw;
             }
         }
-        public string DeleteCustomer(int id)
+        public string DeleteCustomer(int id) //Soft Delete. Chaneged the IsDeleted property value of the Customer to True
         {
             try
             {
@@ -194,13 +209,11 @@ namespace DataAccessLayer
                     }
                 }
             }
-            catch (DbUpdateException e)
+            
+            catch (Exception ex)
             {
-                return "حذف مشتری با مشکل مواجه شد: خطای پایگاه داده\n" + e.Message;
-            }
-            catch (Exception e)
-            {
-                return "حذف مشتری با مشکل مواجه شد: خطای ناشناخته\n" + e.Message;
+                logger.Error(ex,"Problem in DeleteCustomer caugth in dal") ;
+                throw;
             }
         }
         

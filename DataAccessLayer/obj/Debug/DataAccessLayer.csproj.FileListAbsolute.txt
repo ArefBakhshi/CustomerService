@@ -16,3 +16,5 @@ C:\Matab\Customer Service\DataAccessLayer\bin\Debug\App.config
 C:\Matab\Customer Service\DataAccessLayer\obj\Debug\DataAccessLayer.Migrations.InitialCreate.resources
 C:\Matab\Customer Service\DataAccessLayer\obj\Debug\DataAccessLayer.csproj.GenerateResource.cache
 C:\Matab\Customer Service\DataAccessLayer\obj\Debug\DataAccessLayer.Migrations.DBproductChanges.resources
+C:\Matab\Customer Service\DataAccessLayer\bin\Debug\NLog.dll
+C:\Matab\Customer Service\DataAccessLayer\bin\Debug\NLog.xml

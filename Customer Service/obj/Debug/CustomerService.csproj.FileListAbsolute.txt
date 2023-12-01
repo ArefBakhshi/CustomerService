@@ -47,3 +47,6 @@ C:\Matab\Customer Service\Customer Service\bin\Debug\DataAccessLayer.dll
 C:\Matab\Customer Service\Customer Service\bin\Debug\DataAccessLayer.pdb
 C:\Matab\Customer Service\Customer Service\bin\Debug\DataAccessLayer.dll.config
 C:\Matab\Customer Service\Customer Service\bin\Debug\App.config
+C:\Matab\Customer Service\Customer Service\bin\Debug\NLog.config
+C:\Matab\Customer Service\Customer Service\bin\Debug\NLog.dll
+C:\Matab\Customer Service\Customer Service\bin\Debug\NLog.xml

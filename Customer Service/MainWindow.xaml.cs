@@ -30,14 +30,16 @@ namespace Customer_Service
         void OpenWinForm(Form form)
         {
             Window g = this.FindName("Main") as Window;
-            BlurBitmapEffect blurBitmapEffect = new BlurBitmapEffect();
-            blurBitmapEffect.Radius = 20;
-            g.BitmapEffect = blurBitmapEffect;
+            BlurEffect blurEffect = new BlurEffect
+            {
+                Radius = 20
+            };
+            g.Effect = blurEffect;
             form.ShowDialog();
-            blurBitmapEffect.Radius = 0;
-            g.BitmapEffect = blurBitmapEffect;
+            g.Effect = null; // Clear the effect after the dialog is closed
         }
-        
+
+
 
 
         private void WrapPanel_MouseDown_Customer(object sender, MouseButtonEventArgs e)

@@ -8,6 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/icons8-check-50%20(1).png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("xmlfile1.xml")]
 
 
