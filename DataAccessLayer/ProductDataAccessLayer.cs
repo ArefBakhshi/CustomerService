@@ -13,36 +13,36 @@ namespace DataAccessLayer
 {
     public class ProductDataAccessLayer
     {
-        public string CreateProduct(Product product)
+        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+
+
+        public string CreateProduct(Product product) // it does as the name suggests.  
         {
             try
             {
                 if (product == null)
                 {
-                    return "اطلاعات مشتری صحیح نیست!";
+                    return "اطلاعات کالا صحیح نیست!";
                 }
 
                 using (var db = new DB())
                 {
                     db.Products.Add(product);
                     db.SaveChanges();
-                    return "ثبت اطلاعات مشتری با موفقیت انجام شد";
+                    return "ثبت اطلاعات کالا با موفقیت انجام شد";
                 }
             }
-            catch (DbUpdateException e)
+            catch (Exception ex)
             {
-                return "ثبت اطلاعات مشتری با مشکل مواجه شد: خطای پایگاه داده\n" + e.Message;
+                logger.Error(ex, "An unexpected exception occurred while creating a new product. Caught in Dal");
+                throw;
             }
-            catch (Exception e)
-            {
-                return "ثبت اطلاعات مشتری با مشکل مواجه شد: خطای ناشناخته\n" + e.Message;
-            }
+
         }
-        public DataTable GetActiveProducts()
+        public DataTable GetActiveProducts() //Gets active Product from database to populate the grid.
         {
             string connectionString = ConfigurationManager.ConnectionStrings["Constr"].ConnectionString;
-
-            DataTable dataTable = null;
+            DataTable dataTable = new DataTable();
 
             try
             {
@@ -50,9 +50,10 @@ namespace DataAccessLayer
                 {
                     connection.Open();
 
-                    using (SqlCommand command = new SqlCommand("dbo.GetActiveProduct", connection))
+                    using (SqlCommand command = new SqlCommand("dbo.GetActiveProducts", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
+                        command.CommandTimeout = 180; // Timeout in seconds
 
                         using (SqlDataAdapter adapter = new SqlDataAdapter(command))
                         {
@@ -66,111 +67,110 @@ namespace DataAccessLayer
             }
             catch (Exception ex)
             {
-                // Handle the exception (e.g., logging, error reporting, etc.)
-                Console.WriteLine("An error occurred: " + ex.Message);
+                logger.Error(ex, "An error occurred while retrieving active Products from the database. Caught in Dal");
+                throw;
             }
 
             return dataTable;
-        }// for getting the list of active Products in database to be put in data grid.
-        public DataTable SearchProducts(string searchParameter)
+        }
+        public DataTable SearchProducts(string searchParameter) // search results
         {
             string connectionString = ConfigurationManager.ConnectionStrings["Constr"].ConnectionString;
+            DataTable dt = new DataTable();
 
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    connection.Open();
+                    
 
-                    using (SqlCommand command = new SqlCommand())
-                    {
-                        command.Connection = connection;
+                    using (SqlCommand command = new SqlCommand("dbo.SearchProducts", connection))
+                    {                   
                         command.CommandType = CommandType.StoredProcedure;
-                        command.CommandText = "dbo.SearchProducts";
                         command.Parameters.AddWithValue("@Search", searchParameter);
 
-                        using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                        using (SqlDataAdapter adp = new SqlDataAdapter(command))
                         {
-                            var dataSet = new DataSet();
-                            adapter.Fill(dataSet);
-                            return dataSet.Tables[0];
+                            adp.Fill(dt);
                         }
+                        return dt;
                     }
+                }
+            }
+
+            catch (Exception ex)
+            {
+                logger.Error(ex, "A general exception occurred during the search operation. caught in Dal");
+                throw;
+            }
+
+
+        }
+        public bool DoesProductExist(Product product, int? existingProductId = null) // this one is a bit complicated lol.checks for existing Product by phone before create and update. Adds an optional existingCustomerId parameter
+        {
+            if (product == null || string.IsNullOrWhiteSpace(product.Name))
+            {
+                return true;
+            }
+            try
+            {
+                using (var db = new DB())
+                {
+
+                    return db.Products.Any(existingProduct => existingProduct.Name == product.Name && existingProductId != existingProduct.Id);
                 }
             }
             catch (Exception ex)
             {
-                
-                Console.WriteLine("An error occurred: " + ex.Message);
-                return null; // or throw an exception, depending on your requirements
-            }
-        }// For Searching in the existing products.
-        public bool DoesProductExist(Product product) // Checking if new Product already exists in database .
-        {
-            try
-            {
-                using (var db = new DB())
-                {
-                    var existingProduct = db.Products.FirstOrDefault(c => c.Name == product.Name);
-
-                    if (existingProduct == null)
-                    {
-                        return true; // Customer does not exist in the database
-                    }
-                    else
-                    {
-                        return false; // Customer with the same phone number already exists
-                    }
-                }
-            }
-            catch (Exception)
-            {
-                // Handle or log the exception if necessary
-                return false; // Return false by default in case of any exception
+                logger.Error(ex, "An unexpected error occurred while checking product existence, caught in DAL.");
+                throw;
             }
         }
-        public Customer GetCustomerById(int id) // gets a Product by id to be used for delete and update.
+        public Product GetProductById(int id) // get the entity by id for edit or deletion.
         {
             DB db = new DB();
-            return db.Customers.Where(i => i.Id == id).FirstOrDefault();
+            try
+            {
+                Product product = db.Products.FirstOrDefault(c => c.Id == id);
+                return product;
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex, $"An exception occurred in GetProductById when attempting to find product with ID in dal {id}");
+                throw;
+            }
         }
-        public string UpdateProduct(Product product, int id)
+        public string UpdateProduct(Product product, int id) //as it does as the name suggests.
         {
             try
             {
                 using (var db = new DB())
                 {
-                    var existingProducts = db.Products.FirstOrDefault(c => c.Id == id);
+                    var existingProduct = db.Products.FirstOrDefault(c => c.Id == id);
 
-                    if (existingProducts != null)
+                    if (existingProduct != null)
                     {
-                        existingProducts.Name = product.Name;
-                        existingProducts.Price = product.Price;
-                        existingProducts.Stock = product.Stock;
-
+                        existingProduct.Name = product.Name;
+                        existingProduct.Price = product.Price;
+                        existingProduct.Stock = product.Stock;
                         db.SaveChanges();
-                        return "ثبت اطلاعات مشتری با موفقیت انجام شد!";
+                        return "ویرایش اطلاعات کالا با موفقیت انجام شد";
                     }
                     else
                     {
-                        return "مشتری مورد نظر یافت نشد!";
+                        return "کالا مورد نظر یافت نشد";
                     }
                 }
+
+
             }
-            catch (DbUpdateException e)
+            catch (Exception ex)
             {
-                return "ویرایش اطلاعات مشتری با مشکل مواجه شد: خطای پایگاه داده\n" + e.Message;
-            }
-            catch (InvalidOperationException e)
-            {
-                return "ویرایش اطلاعات مشتری با مشکل مواجه شد: خطای عملیات غیرمجاز\n" + e.Message;
-            }
-            catch (Exception e)
-            {
-                return "ویرایش اطلاعات مشتری با مشکل مواجه شد: خطای ناشناخته\n" + e.Message;
+                logger.Error(ex, "Problem in UpdateCustomer caugth in dal");
+                throw;
             }
         }
-        public string DeleteProduct(int id)
+        public string DeleteProduct(int id) //Soft Delete. Chaneged the IsDeleted property value of the Product to True
         {
             try
             {
@@ -182,21 +182,19 @@ namespace DataAccessLayer
                     {
                         product.IsDeleted = true;
                         db.SaveChanges();
-                        return "حذف مشتری با موفقیت انجام شد!";
+                        return "حذف کالا با موفقیت انجام شد";
                     }
                     else
                     {
-                        return "مشتری مورد نظر یافت نشد!";
+                        return "کالا مورد نظر یافت نشد";
                     }
                 }
             }
-            catch (DbUpdateException e)
+
+            catch (Exception ex)
             {
-                return "حذف مشتری با مشکل مواجه شد: خطای پایگاه داده\n" + e.Message;
-            }
-            catch (Exception e)
-            {
-                return "حذف مشتری با مشکل مواجه شد: خطای ناشناخته\n" + e.Message;
+                logger.Error(ex, "Problem in DeleteProduct caugth in dal");
+                throw;
             }
         }
     }
